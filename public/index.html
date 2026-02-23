@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evin Mathew | Web Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <h2>Evin Mathew</h2>
+    <div>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Hello, I'm Evin Mathew</h1>
+    <h3>Student | Web Developer</h3>
+</section>
+
+<section id="about" class="about">
+    <h2>About</h2>
+    <p>
+        I am a passionate student and aspiring web developer.
+        I build responsive websites using HTML, CSS, JavaScript
+        and backend technologies.
+    </p>
+</section>
+
+<section id="contact" class="contact">
+    <h2>Contact</h2>
+
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <p id="responseMessage"></p>
+</section>
+
+<footer>
+    <p>© 2026 Evin Mathew</p>
+</footer>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    const response = await fetch("/contact", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, message })
+    });
+
+    const data = await response.json();
+    document.getElementById("responseMessage").innerText = data.message;
+
+    document.getElementById("contactForm").reset();
+});
+</script>
+
+</body>
+</html>
